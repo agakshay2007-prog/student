@@ -1,0 +1,2551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Life | Smart Farming for Better Future</title>
+    <meta name="description" content="Green Life is a premium AI-powered smart agriculture platform for modern farmers.">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+/* style.css */
+:root {
+    --primary-color: #2E7D32;
+    --primary-light: #4CAF50;
+    --primary-dark: #1B5E20;
+    --accent-color: #8BC34A;
+    --text-main: #1f2937;
+    --text-muted: #4b5563;
+    --bg-main: #f8fafc;
+    --bg-alt: #f1f5f9;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+    --radius: 16px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    --success: #10B981;
+    --error: #EF4444;
+    --warning: #F59E0B;
+}
+
+body.dark-mode {
+    --primary-color: #4CAF50;
+    --primary-light: #8BC34A;
+    --primary-dark: #2E7D32;
+    --accent-color: #CDD02D;
+    --text-main: #f8fafc;
+    --text-muted: #cbd5e1;
+    --bg-main: #0f172a;
+    --bg-alt: #1e293b;
+    --glass-bg: rgba(15, 23, 42, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-family: 'Outfit', sans-serif;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+    color: var(--text-main);
+    font-weight: 700;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+.highlight {
+    color: var(--primary-color);
+}
+
+.bg-alt {
+    background-color: var(--bg-alt);
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mb-4 {
+    margin-bottom: 2rem;
+}
+
+/* Glass Card */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+}
+
+.glass-section {
+    position: relative;
+    background: radial-gradient(circle at top right, rgba(76, 175, 80, 0.1), transparent 40%),
+                radial-gradient(circle at bottom left, rgba(139, 195, 74, 0.1), transparent 40%);
+}
+
+/* Notification Banner */
+.notification-banner {
+    background: linear-gradient(90deg, var(--primary-dark), var(--primary-color));
+    color: white;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    overflow: hidden;
+    position: relative;
+    height: 36px;
+    z-index: 1001;
+}
+
+.banner-content {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    transition: transform 0.5s ease-in-out;
+}
+
+.banner-item {
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 36px;
+}
+
+/* Navbar */
+.navbar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+    z-index: 1000;
+    transition: var(--transition);
+}
+
+.navbar.scrolled {
+    padding: 0.8rem 5%;
+    box-shadow: var(--shadow-sm);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.logo i {
+    font-size: 1.8rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-links > li > a {
+    font-weight: 600;
+    color: var(--text-main);
+    position: relative;
+    padding: 0.5rem 0;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.nav-links > li > a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.nav-links > li > a:hover::after,
+.nav-links > li > a.active::after {
+    width: 100%;
+}
+
+/* Dropdown */
+.dropdown-parent {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--bg-main);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    box-shadow: var(--shadow-md);
+    min-width: 220px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: var(--transition);
+    z-index: 100;
+    padding: 0.5rem 0;
+}
+
+.dropdown-parent:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu li a {
+    display: block;
+    padding: 0.8rem 1.5rem;
+    color: var(--text-main);
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.dropdown-menu li a:hover {
+    background: var(--bg-alt);
+    color: var(--primary-color);
+    padding-left: 1.8rem;
+}
+
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Language Switcher */
+.lang-switcher {
+    position: relative;
+}
+
+.lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.9rem !important;
+    font-weight: 600;
+    padding: 0.4rem 0.8rem !important;
+    border-radius: 20px !important;
+    border: 1px solid var(--glass-border) !important;
+}
+
+.lang-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--bg-main);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    box-shadow: var(--shadow-md);
+    min-width: 120px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: var(--transition);
+    z-index: 100;
+    margin-top: 0.5rem;
+    overflow: hidden;
+}
+
+.lang-switcher:hover .lang-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.lang-option {
+    width: 100%;
+    text-align: left;
+    padding: 0.8rem 1.2rem;
+    background: none;
+    border: none;
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.lang-option:hover {
+    background: var(--bg-alt);
+    color: var(--primary-color);
+}
+
+.icon-btn, .mobile-menu-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 50%;
+}
+
+.icon-btn:hover {
+    background-color: var(--bg-alt);
+    color: var(--primary-color);
+}
+
+.mobile-menu-btn {
+    display: none;
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    position: fixed;
+    top: 106px; /* 70px + 36px banner */
+    left: 0;
+    width: 100%;
+    background-color: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 2rem;
+    transform: translateY(-150%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+}
+
+.mobile-menu.active {
+    transform: translateY(0);
+}
+
+.mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+}
+
+.mobile-nav-links a {
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: block;
+    padding: 0.5rem;
+}
+
+/* Buttons & Ripple */
+.primary-btn, .secondary-btn {
+    padding: 0.8rem 1.8rem;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: inherit;
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.primary-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: white;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+}
+
+.secondary-btn {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    border: 1px solid var(--text-muted);
+}
+
+.secondary-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background-color: var(--bg-alt);
+}
+
+.hero-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    backdrop-filter: blur(5px);
+}
+
+.hero-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: white;
+    color: white;
+}
+
+.full-width {
+    width: 100%;
+}
+
+/* Ripple Animation */
+.ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple-span {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple-anim 600ms linear;
+    background-color: rgba(255, 255, 255, 0.3);
+    pointer-events: none;
+    width: 100px;
+    height: 100px;
+    margin-top: -50px;
+    margin-left: -50px;
+}
+.secondary-btn .ripple-span {
+    background-color: rgba(76, 175, 80, 0.2);
+}
+
+@keyframes ripple-anim {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Hero Section */
+.hero {
+    height: calc(100vh - 36px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 5%;
+    background: linear-gradient(rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.7)), url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    max-width: 800px;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    margin-bottom: 1rem;
+    color: white;
+    line-height: 1.1;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.hero .highlight {
+    background: linear-gradient(135deg, #A5D6A7, #4CAF50);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    margin-bottom: 2.5rem;
+    color: #e2e8f0;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Hero Shapes */
+.hero-shape {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.4), rgba(139, 195, 74, 0.2));
+    filter: blur(40px);
+    z-index: 1;
+}
+
+.shape-1 {
+    width: 400px;
+    height: 400px;
+    top: -100px;
+    left: -100px;
+}
+
+.shape-2 {
+    width: 300px;
+    height: 300px;
+    bottom: 50px;
+    right: -50px;
+}
+
+/* Floating Animation */
+.float-anim {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Sections General */
+.section {
+    padding: 6rem 5%;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-header h2 {
+    font-size: 2.8rem;
+    margin-bottom: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--primary-color);
+}
+
+.section-header p {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Dashboard Statistics */
+.stats-section {
+    padding: 4rem 5%;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+}
+
+.stat-card {
+    text-align: center;
+    padding: 2rem !important;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.stat-card h3 {
+    font-size: 2.5rem;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.stat-card p {
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+/* Premium AI Plant Doctor Split Layout */
+.ai-doctor-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: stretch;
+}
+
+@media (max-width: 900px) {
+    .ai-doctor-split {
+        grid-template-columns: 1fr;
+    }
+}
+
+.vision-ai-col, .chat-ai-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.upload-area {
+    border: 2px dashed var(--primary-light);
+    text-align: center;
+    transition: var(--transition);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.upload-area:hover, .upload-area.dragover {
+    background: rgba(76, 175, 80, 0.05);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.2);
+}
+
+.upload-icon {
+    font-size: 4rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+.upload-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.upload-content p {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.file-formats {
+    font-size: 0.85rem;
+    background: var(--bg-alt);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.preview-area {
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.image-wrapper {
+    width: 100%;
+    max-height: 400px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-md);
+    position: relative;
+}
+
+.image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.image-wrapper:hover img {
+    transform: scale(1.05);
+}
+
+.preview-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.pulse-anim {
+    animation: pulse 2s infinite;
+}
+
+/* Analysis Result Card */
+.result-card {
+    border-top: 4px solid var(--success);
+    position: relative;
+    overflow: hidden;
+    animation: slideUpMsg 0.5s ease-out forwards;
+}
+
+.result-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0 0 30px rgba(16, 185, 129, 0.1);
+    pointer-events: none;
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.result-header h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+}
+
+.confidence-badge {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.disease-title {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.disease-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.info-block {
+    background: var(--bg-main);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 3px solid var(--primary-color);
+}
+
+.info-block h4 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.hidden { display: none !important; }
+
+/* Camera Scanner UI */
+.camera-scanner {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+    border-radius: var(--radius);
+}
+
+.viewfinder {
+    width: 250px; height: 250px;
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.viewfinder .corner {
+    position: absolute;
+    width: 40px; height: 40px;
+    border: 4px solid var(--success);
+}
+.viewfinder .top-left { top: 0; left: 0; border-right: none; border-bottom: none; }
+.viewfinder .top-right { top: 0; right: 0; border-left: none; border-bottom: none; }
+.viewfinder .bottom-left { bottom: 0; left: 0; border-right: none; border-top: none; }
+.viewfinder .bottom-right { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+.scan-laser {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 2px;
+    background: var(--success);
+    box-shadow: 0 0 15px 2px var(--success);
+    animation: scanLaser 2s linear infinite;
+}
+
+@keyframes scanLaser {
+    0% { top: 0; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+
+.scan-text {
+    color: var(--success);
+    font-weight: 600;
+    font-size: 1.1rem;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+/* Chatbot Style Plant Doctor */
+.chatbot-container {
+    padding: 0 !important;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+
+.chat-header {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+    color: white;
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.bot-avatar {
+    width: 50px; height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem;
+}
+
+.chat-header h3 { color: white; margin: 0; font-size: 1.2rem; }
+.online-status { font-size: 0.85rem; color: #A5D6A7; display: flex; align-items: center; gap: 0.3rem; }
+.online-status::before {
+    content: ''; display: inline-block; width: 8px; height: 8px;
+    background: #4CAF50; border-radius: 50%; box-shadow: 0 0 5px #4CAF50;
+}
+
+.chat-window {
+    padding: 2rem;
+    background: var(--bg-main);
+    flex: 1;
+    overflow-y: auto;
+    display: flex; flex-direction: column; gap: 1rem;
+    min-height: 300px;
+}
+
+.message {
+    max-width: 80%; padding: 1rem 1.5rem; border-radius: 18px; line-height: 1.5;
+    animation: slideUpMsg 0.3s ease-out forwards;
+}
+
+@keyframes slideUpMsg {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.bot-msg { background: var(--bg-alt); color: var(--text-main); align-self: flex-start; border-bottom-left-radius: 4px; }
+.user-msg { background: linear-gradient(135deg, var(--primary-color), var(--primary-light)); color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
+.diagnosis-result-msg { border: 1px solid var(--primary-color); background: rgba(76, 175, 80, 0.05); }
+
+.chat-input-area {
+    padding: 1.5rem; background: var(--glass-bg); border-top: 1px solid var(--glass-border);
+    display: flex; align-items: center; gap: 1rem;
+}
+
+.chat-input-area input {
+    flex: 1; padding: 1rem 1.5rem; border-radius: 30px; border: 1px solid var(--text-muted);
+    background: var(--bg-main); color: var(--text-main); font-size: 1rem; font-family: inherit; outline: none; transition: var(--transition);
+}
+.chat-input-area input:focus { border-color: var(--primary-color); }
+
+.action-btn { color: var(--text-muted); font-size: 1.5rem; }
+.action-btn:hover { color: var(--primary-color); background: var(--bg-alt); }
+.send-btn { width: 50px; height: 50px; padding: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+
+/* Typing Indicator */
+.typing-indicator { padding: 0.5rem 2rem; display: flex; gap: 0.3rem; background: var(--bg-main); }
+.typing-indicator span { width: 8px; height: 8px; background-color: var(--text-muted); border-radius: 50%; animation: typing 1.4s infinite ease-in-out both; }
+.typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+.typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+@keyframes typing { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+
+/* Voice Overlay */
+.voice-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85); z-index: 10;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    backdrop-filter: blur(5px);
+}
+.voice-waves { display: flex; align-items: center; gap: 5px; margin-bottom: 1rem; height: 50px; }
+.voice-waves span {
+    display: block; width: 6px; background: var(--success); border-radius: 3px;
+    animation: wave 1s infinite ease-in-out alternate;
+}
+.voice-waves span:nth-child(1) { height: 20px; animation-delay: 0.1s; }
+.voice-waves span:nth-child(2) { height: 40px; animation-delay: 0.2s; }
+.voice-waves span:nth-child(3) { height: 50px; animation-delay: 0.3s; }
+.voice-waves span:nth-child(4) { height: 40px; animation-delay: 0.4s; }
+.voice-waves span:nth-child(5) { height: 20px; animation-delay: 0.5s; }
+@keyframes wave { 0% { height: 10px; } 100% { height: 50px; } }
+.voice-overlay p { color: var(--success); font-weight: 600; animation: pulse 1.5s infinite; }
+
+/* Weather Section */
+.weather-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    padding: 1rem 1.5rem !important;
+}
+
+.weather-controls i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.weather-controls input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: var(--text-main);
+    font-size: 1.1rem;
+    font-family: inherit;
+    outline: none;
+}
+
+.weather-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+}
+
+.weather-card {
+    padding: 2rem 1.5rem !important;
+    text-align: center;
+}
+
+.weather-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
+
+.weather-icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.weather-value {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+}
+
+.weather-label {
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+/* Crop Recommendation */
+.grid-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: stretch;
+}
+
+.form-group select {
+    padding: 1rem;
+    border: 1px solid var(--text-muted);
+    border-radius: var(--radius);
+    background: var(--bg-main);
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    transition: var(--transition);
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23718096%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem top 50%;
+    background-size: 0.65rem auto;
+}
+
+.form-group select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+.result-display {
+    text-align: center;
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(139, 195, 74, 0.05));
+    border: 2px dashed var(--glass-border);
+}
+
+.empty-state {
+    color: var(--text-muted);
+}
+.empty-state i {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.rec-result-content h3 {
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+.rec-crop {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+.rec-desc {
+    color: var(--text-main);
+    font-size: 1.1rem;
+}
+
+/* Fertilizer Guide */
+.large-select {
+    font-size: 1.2rem;
+    padding: 1.2rem 2rem;
+    width: 100%;
+    max-width: 500px;
+    border-color: var(--primary-color);
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%232E7D32%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1.5rem top 50%;
+    background-size: 0.8rem auto;
+}
+
+.fert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    animation: slideUpMsg 0.5s ease;
+}
+
+.fert-card {
+    text-align: center;
+}
+
+.fert-icon {
+    font-size: 3rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.fert-card h3 {
+    margin-bottom: 1rem;
+}
+
+.fert-card p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Market Prices */
+.market-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+}
+
+.crop-card {
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.crop-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--primary-color);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+    transform-origin: left;
+}
+
+.crop-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.crop-card:hover::before {
+    transform: scaleX(1);
+}
+
+.crop-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(76, 175, 80, 0.1);
+    color: var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    margin: 0 auto 1.5rem;
+    transition: var(--transition);
+}
+
+.crop-card:hover .crop-icon {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: white;
+    transform: rotate(10deg) scale(1.1);
+}
+
+.crop-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.crop-card .price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.crop-card .price span {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+.trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.trend.positive { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+.trend.negative { background: rgba(239, 68, 68, 0.15); color: var(--error); }
+.trend.neutral { background: rgba(113, 128, 150, 0.15); color: var(--text-muted); }
+
+/* Farming Calendar Timeline */
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 40px;
+    width: 4px;
+    background: var(--glass-border);
+    border-radius: 2px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    margin-left: 100px;
+    padding: 2rem !important;
+}
+
+.timeline-dot {
+    position: absolute;
+    top: 2rem;
+    left: -60px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 0 6px var(--bg-main);
+    z-index: 2;
+}
+
+.bg-kharif { background: #4CAF50; }
+.bg-rabi { background: #2196F3; }
+.bg-zaid { background: #FF9800; }
+
+.timeline-content h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.timeline-date {
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.timeline-content p {
+    margin-bottom: 0.3rem;
+    color: var(--text-main);
+}
+
+/* Forms */
+.form-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.marketplace-form {
+    max-width: 900px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 1rem;
+    border: 1px solid var(--text-muted);
+    border-radius: var(--radius);
+    background: var(--bg-main);
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+.form-group input.invalid,
+.form-group textarea.invalid,
+.form-group select.invalid {
+    border-color: var(--error);
+}
+
+.error-msg {
+    color: var(--error);
+    font-size: 0.85rem;
+    display: none;
+}
+
+.form-group input.invalid ~ .error-msg,
+.form-group textarea.invalid ~ .error-msg,
+.form-group select.invalid ~ .error-msg {
+    display: block;
+}
+
+.success-msg {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    animation: slideUpMsg 0.3s ease;
+}
+
+/* Footer */
+footer {
+    background: linear-gradient(to right, var(--primary-dark), #104014);
+    color: white;
+    padding: 5rem 5% 1rem;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.footer-brand .logo {
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.footer-brand p {
+    color: #e2e8f0;
+    max-width: 300px;
+}
+
+.footer-links h3, .footer-contact h3, .footer-social h3 {
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+.footer-links h3::after, .footer-contact h3::after, .footer-social h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: var(--accent-color);
+}
+
+.footer-links ul, .footer-contact ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.footer-links a, .footer-contact li {
+    color: #cbd5e1;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.footer-links a:hover {
+    color: var(--accent-color);
+    padding-left: 5px;
+}
+
+.footer-contact i {
+    color: var(--accent-color);
+    font-size: 1.2rem;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-icons a {
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.social-icons a:hover {
+    background: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #94a3b8;
+    font-size: 0.95rem;
+}
+
+/* Animations */
+.fade-in {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .grid-split {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .mobile-menu-btn {
+        display: flex;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .section {
+        padding: 4rem 5%;
+    }
+    
+    .timeline::before {
+        left: 20px;
+    }
+    
+    .timeline-item {
+        margin-left: 60px;
+    }
+    
+    .timeline-dot {
+        left: -40px;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+    }
+}
+
+</style>
+</head>
+<body class="light-mode">
+    
+    <!-- Notification Banner -->
+    <div class="notification-banner">
+        <div class="banner-content" id="notification-slider">
+            <!-- Notifications injected via JS -->
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <header class="navbar" id="navbar">
+        <div class="logo">
+            <i class="ph-fill ph-plant"></i>
+            <span>Green Life</span>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#plant-doctor">Plant Doctor</a></li>
+                <li><a href="#weather">Weather</a></li>
+                <li><a href="#market">Market Prices</a></li>
+                <li class="dropdown-parent">
+                    <a href="#features">Features <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#crop-recommendation">Crop Recommendation</a></li>
+                        <li><a href="#fertilizer-guide">Fertilizer Guide</a></li>
+                        <li><a href="#calendar">Farming Calendar</a></li>
+                    </ul>
+                </li>
+                <li><a href="#sell">Sell Products</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="nav-controls">
+            <!-- Language Switcher -->
+            <div class="lang-switcher">
+                <button class="lang-btn icon-btn"><i class="ph ph-translate"></i> <span id="current-lang">EN</span></button>
+                <div class="lang-dropdown">
+                    <button class="lang-option" data-lang="EN">English</button>
+                    <button class="lang-option" data-lang="KN">Kannada</button>
+                    <button class="lang-option" data-lang="HI">Hindi</button>
+                </div>
+            </div>
+            
+            <button id="theme-toggle" class="icon-btn ripple" aria-label="Toggle Dark Mode">
+                <i class="ph ph-moon"></i>
+            </button>
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <ul class="mobile-nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#plant-doctor">Plant Doctor</a></li>
+            <li><a href="#weather">Weather</a></li>
+            <li><a href="#market">Market Prices</a></li>
+            <li><a href="#crop-recommendation">Crop Recommendation</a></li>
+            <li><a href="#fertilizer-guide">Fertilizer Guide</a></li>
+            <li><a href="#calendar">Farming Calendar</a></li>
+            <li><a href="#sell">Sell Products</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content fade-in">
+            <h1>Smart Farming for a <span class="highlight">Better Future</span></h1>
+            <p>Empower your agriculture business with AI-driven insights, real-time weather, and market updates.</p>
+            <div class="hero-buttons">
+                <button id="hero-cta" class="primary-btn ripple float-anim">Start AI Diagnostics <i class="ph ph-arrow-right"></i></button>
+                <a href="#features" class="secondary-btn ripple hero-secondary">Explore Features</a>
+            </div>
+        </div>
+        <!-- Decorative elements -->
+        <div class="hero-shape shape-1 float-anim"></div>
+        <div class="hero-shape shape-2 float-anim" style="animation-delay: 1s;"></div>
+    </section>
+
+    <!-- Dashboard Statistics Section -->
+    <section id="stats" class="stats-section bg-alt">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card glass-card fade-in">
+                    <div class="stat-icon"><i class="ph-fill ph-users"></i></div>
+                    <h3 class="counter" data-target="15420">0</h3>
+                    <p>Farmers Helped</p>
+                </div>
+                <div class="stat-card glass-card fade-in" style="transition-delay: 0.1s;">
+                    <div class="stat-icon"><i class="ph-fill ph-plant"></i></div>
+                    <h3 class="counter" data-target="86500">0</h3>
+                    <p>Crops Monitored</p>
+                </div>
+                <div class="stat-card glass-card fade-in" style="transition-delay: 0.2s;">
+                    <div class="stat-icon"><i class="ph-fill ph-trend-up"></i></div>
+                    <h3 class="counter" data-target="1240">0</h3>
+                    <p>Market Updates</p>
+                </div>
+                <div class="stat-card glass-card fade-in" style="transition-delay: 0.3s;">
+                    <div class="stat-icon"><i class="ph-fill ph-robot"></i></div>
+                    <h3 class="counter" data-target="45800">0</h3>
+                    <p>AI Diagnoses</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="features"></div>
+
+    <!-- Premium AI Plant Doctor Split Layout -->
+    <section id="plant-doctor" class="section glass-section">
+        <div class="container fade-in">
+            <div class="section-header">
+                <h2><i class="ph-fill ph-robot"></i> Premium AI Plant Doctor</h2>
+                <p>Experience our state-of-the-art agricultural AI assistant. Scan plants or chat directly with Dr. Green.</p>
+            </div>
+            
+            <div class="ai-doctor-split">
+                <!-- Left Column: Vision AI (Upload & Scanner) -->
+                <div class="vision-ai-col">
+                    <div class="upload-area glass-card" id="upload-area">
+                        <!-- Camera Scanner UI overlay (hidden by default) -->
+                        <div id="camera-scanner" class="camera-scanner hidden">
+                            <div class="viewfinder">
+                                <div class="corner top-left"></div>
+                                <div class="corner top-right"></div>
+                                <div class="corner bottom-left"></div>
+                                <div class="corner bottom-right"></div>
+                                <div class="scan-laser"></div>
+                            </div>
+                            <div class="scan-text">Scanning Plant Health...</div>
+                        </div>
+
+                        <!-- Standard Upload Content -->
+                        <input type="file" id="file-input" accept="image/jpeg, image/png" hidden>
+                        <div class="upload-content" id="upload-content">
+                            <i class="ph-fill ph-upload-simple upload-icon float-anim"></i>
+                            <h3>Drag & Drop your plant image here</h3>
+                            <p>or click to browse from your device</p>
+                            <span class="file-formats">Supports: JPG, PNG</span>
+                            <div class="action-buttons" style="display: flex; gap: 1rem; justify-content: center; align-items: center; margin-top: 1.5rem;">
+                                <button class="secondary-btn ripple" onclick="document.getElementById('file-input').click()"><i class="ph ph-folder-open"></i> Browse</button>
+                                <button id="open-camera-btn" class="primary-btn ripple"><i class="ph ph-camera"></i> Camera Scan</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Preview Area -->
+                        <div class="preview-area hidden" id="preview-area">
+                            <div class="image-wrapper">
+                                <img id="image-preview" src="" alt="Plant Preview">
+                            </div>
+                            <div class="preview-actions">
+                                <button id="reupload-btn" class="secondary-btn ripple"><i class="ph ph-arrows-clockwise"></i> Change</button>
+                                <button id="analyze-btn" class="primary-btn ripple"><i class="ph-fill ph-magic-wand"></i> Analyze Plant</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Analysis Result Dashboard -->
+                    <div class="result-card glass-card hidden" id="analysis-result" style="margin-top: 1.5rem;">
+                        <div class="result-header">
+                            <h3><i class="ph-fill ph-check-circle" style="color:var(--success)"></i> Analysis Complete</h3>
+                            <div class="confidence-badge">Confidence: <span id="confidence-val">92%</span></div>
+                        </div>
+                        
+                        <div class="disease-info">
+                            <h2 id="disease-name" class="disease-title">Tomato Leaf Curl</h2>
+                            
+                            <div class="info-block">
+                                <h4><i class="ph-fill ph-warning-circle" style="color:var(--warning)"></i> Cause</h4>
+                                <p id="disease-cause">Caused by whitefly-transmitted begomovirus.</p>
+                            </div>
+                            
+                            <div class="info-block">
+                                <h4><i class="ph-fill ph-first-aid" style="color:var(--primary-color)"></i> Recommended Medicine</h4>
+                                <p id="disease-medicine">Apply systemic insecticides like Imidacloprid to control whiteflies.</p>
+                            </div>
+                            
+                            <div class="info-block">
+                                <h4><i class="ph-fill ph-shield-check" style="color:var(--success)"></i> Prevention Tips</h4>
+                                <p id="disease-prevention">Use yellow sticky traps and plant border crops.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Chat AI (Interactive Chatbot) -->
+                <div class="chat-ai-col">
+                    <div class="chatbot-container glass-card">
+                        <!-- Voice Wave Overlay (hidden by default) -->
+                        <div id="voice-overlay" class="voice-overlay hidden">
+                            <div class="voice-waves">
+                                <span></span><span></span><span></span><span></span><span></span>
+                            </div>
+                            <p>Listening to farmer query...</p>
+                        </div>
+
+                        <div class="chat-header">
+                            <div class="bot-avatar"><i class="ph-fill ph-plant"></i></div>
+                            <div>
+                                <h3>Dr. Green</h3>
+                                <span class="online-status">Online AI Assistant</span>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-window" id="chat-window">
+                            <div class="message bot-msg">
+                                Hello! I'm Dr. Green. Describe your plant's issue (e.g. "yellow leaf", "black spots", "insects"), or upload a photo on the left.
+                            </div>
+                        </div>
+                        
+                        <div class="typing-indicator hidden" id="typing-indicator">
+                            <span></span><span></span><span></span>
+                        </div>
+
+                        <div class="chat-input-area">
+                            <button id="mic-btn" class="icon-btn action-btn ripple" title="Use Voice Command" style="border:none;background:transparent;"><i class="ph-fill ph-microphone"></i></button>
+                            <input type="text" id="symptom-input" placeholder="Type symptoms here...">
+                            <button id="diagnose-btn" class="primary-btn ripple send-btn"><i class="ph-fill ph-paper-plane-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Weather Section -->
+    <section id="weather" class="section bg-alt">
+        <div class="container fade-in">
+            <div class="section-header">
+                <h2><i class="ph-fill ph-cloud-sun"></i> Live Weather</h2>
+                <p>Real-time microclimate forecasting for your specific area.</p>
+            </div>
+            
+            <div class="weather-controls glass-card">
+                <i class="ph ph-map-pin"></i>
+                <input type="text" id="city-input" placeholder="Enter your city/district..." value="Bengaluru">
+                <button id="update-weather-btn" class="secondary-btn ripple">Check Forecast</button>
+            </div>
+            
+            <div class="weather-grid" id="weather-grid">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Crop Recommendation System -->
+    <section id="crop-recommendation" class="section">
+        <div class="container fade-in">
+            <div class="section-header">
+                <h2><i class="ph-fill ph-spade"></i> Crop Recommendation</h2>
+                <p>Find the best crop to grow based on your land conditions.</p>
+            </div>
+            
+            <div class="grid-split">
+                <div class="form-container glass-card">
+                    <form id="crop-rec-form">
+                        <div class="form-group">
+                            <label>Soil Type</label>
+                            <select id="rec-soil" required>
+                                <option value="" disabled selected>Select Soil Type</option>
+                                <option value="black">Black Soil</option>
+                                <option value="red">Red Soil</option>
+                                <option value="alluvial">Alluvial Soil</option>
+                                <option value="sandy">Sandy Soil</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Water Availability</label>
+                            <select id="rec-water" required>
+                                <option value="" disabled selected>Select Water Level</option>
+                                <option value="high">High (Irrigation)</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low (Rainfed)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Season</label>
+                            <select id="rec-season" required>
+                                <option value="" disabled selected>Select Season</option>
+                                <option value="kharif">Kharif (Monsoon)</option>
+                                <option value="rabi">Rabi (Winter)</option>
+                                <option value="zaid">Zaid (Summer)</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="primary-btn full-width ripple">Get Recommendation</button>
+                    </form>
+                </div>
+                
+                <div class="result-display glass-card flex-center" id="crop-rec-result">
+                    <div class="empty-state">
+                        <i class="ph ph-magic-wand"></i>
+                        <p>Fill the form to get an AI-powered crop recommendation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fertilizer Guide Section -->
+    <section id="fertilizer-guide" class="section bg-alt">
+        <div class="container fade-in">
+            <div class="section-header">
+                <h2><i class="ph-fill ph-drop"></i> Fertilizer & Care Guide</h2>
+                <p>Optimal nutrition and care requirements for your specific crop.</p>
+            </div>
+            
+            <div class="fert-controls text-center mb-4">
+                <select id="fert-crop-select" class="large-select glass-card">
+                    <option value="" disabled selected>Select your crop...</option>
+                    <option value="tomato">Tomato</option>
+                    <option value="rice">Rice</option>
+                    <option value="onion">Onion</option>
+                    <option value="ragi">Ragi</option>
+                    <option value="sugarcane">Sugarcane</option>
+                </select>
+            </div>
+            
+            <div class="fert-grid hidden" id="fert-result-grid">
+                <div class="fert-card glass-card">
+                    <div class="fert-icon"><i class="ph-fill ph-bag"></i></div>
+                    <h3>Fertilizer</h3>
+                    <p id="fert-req-text">Select a crop first</p>
+                </div>
+                <div class="fert-card glass-card">
+                    <div class="fert-icon"><i class="ph-fill ph-drop"></i></div>
+                    <h3>Water Need</h3>
+                    <p id="water-req-text">-</p>
+                </div>
+                <div class="fert-card glass-card">
+                    <div class="fert-icon"><i class="ph-fill ph-sun"></i></div>
+                    <h3>Sunlight</h3>
+                    <p id="sun-req-text">-</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Prices Section -->
+    <section id="market" class="section">
+        <div class="container fade-in">
+            <div class="section-header">
+                <h2><i class="ph-fill ph-chart-line-up"></i> Live Market Prices</h2>
+                <p>Real-time commodity prices to help you negotiate better.</p>
+            </div>
+            
+            <div class="market-grid">
+                <div class="crop-card glass-card">
+                    <div class="crop-icon"><i class="ph ph-apple-logo"></i></div>
+                    <h3>Tomato</h3>
+                    <p class="price">₹45.00 <span>/ kg</span></p>
+                    <span class="trend positive"><i class="ph ph-trend-up"></i> +12.4%</span>
+                </div>
+                <div class="crop-card glass-card">
+                    <div class="crop-icon"><i class="ph ph-plant"></i></div>
+                    <h3>Onion</h3>
+                    <p class="price">₹65.20 <span>/ kg</span></p>
+                    <span class="trend negative"><i class="ph ph-trend-down"></i> -3.2%</span>
+                </div>
+                <div class="crop-card glass-card">
+                    <div class="crop-icon"><i class="ph ph-bowl-food"></i></div>
+                    <h3>Rice</h3>
+                    <p class="price">₹55.00 <span>/ kg</span></p>
+                    <span class="trend positive"><i class="ph ph-trend-up"></i> +1.5%</span>
+                </div>
+                <div class="crop-card glass-card">
+                    <div class="crop-icon"><i class="ph ph-leaf"></i></div>
+                    <h3>Ragi</h3>
+                    <p class="price">₹42.10 <span>/ kg</span></p>
+                    <span class="trend neutral"><i class="ph ph-minus"></i> 0.0%</span>
+                </div>
+                <div class="crop-card glass-card">
+                    <div class="crop-icon"><i class="ph ph-tree-palm"></i></div>
+                    <h3>Sugarcane</h3>
+                    <p class="price">₹3150 <span>/ ton</span></p>
+                    <span class="trend positive"><i class="ph ph-trend-up"></i> +5.8%</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Farming Calendar Section -->
+    <section id="calendar" class="section bg-alt">
+        <div class="container fade-in">
+            <div class="section-header">
+                <h2><i class="ph-fill ph-calendar"></i> Farming Calendar</h2>
+                <p>General timeline for major crop seasons.</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item glass-card">
+                    <div class="timeline-dot bg-kharif"></div>
+                    <div class="timeline-content">
+                        <h3>Kharif Season (Monsoon)</h3>
+                        <p class="timeline-date">June - October</p>
+                        <p><strong>Sowing:</strong> June/July</p>
+                        <p><strong>Crops:</strong> Rice, Maize, Cotton, Groundnut</p>
+                        <p><strong>Harvest:</strong> September/October</p>
+                    </div>
+                </div>
+                <div class="timeline-item glass-card">
+                    <div class="timeline-dot bg-rabi"></div>
+                    <div class="timeline-content">
+                        <h3>Rabi Season (Winter)</h3>
+                        <p class="timeline-date">October - March</p>
+                        <p><strong>Sowing:</strong> October/November</p>
+                        <p><strong>Crops:</strong> Wheat, Barley, Mustard, Peas</p>
+                        <p><strong>Harvest:</strong> February/March</p>
+                    </div>
+                </div>
+                <div class="timeline-item glass-card">
+                    <div class="timeline-dot bg-zaid"></div>
+                    <div class="timeline-content">
+                        <h3>Zaid Season (Summer)</h3>
+                        <p class="timeline-date">March - June</p>
+                        <p><strong>Sowing:</strong> March</p>
+                        <p><strong>Crops:</strong> Watermelon, Cucumber, Vegetables</p>
+                        <p><strong>Harvest:</strong> May/June</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sell Products Section -->
+    <section id="sell" class="section">
+        <div class="container fade-in">
+            <div class="section-header">
+                <h2><i class="ph-fill ph-storefront"></i> Farmer Marketplace</h2>
+                <p>List your produce directly to buyers for better profit margins.</p>
+            </div>
+            
+            <div class="form-container glass-card marketplace-form">
+                <form id="sell-form" novalidate>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="farmer-name">Farmer Name</label>
+                            <input type="text" id="farmer-name" placeholder="John Doe" required>
+                            <span class="error-msg">Please enter your name</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone-number">Phone Number</label>
+                            <input type="tel" id="phone-number" placeholder="9876543210" required pattern="[0-9]{10}">
+                            <span class="error-msg">Please enter a valid 10-digit phone number</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="district">District</label>
+                            <input type="text" id="district" placeholder="e.g. Bangalore Rural" required>
+                            <span class="error-msg">Please enter your district</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="crop-name">Crop Name</label>
+                            <input type="text" id="crop-name" placeholder="e.g. Organic Tomatoes" required>
+                            <span class="error-msg">Please enter crop name</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Quantity</label>
+                            <input type="text" id="quantity" placeholder="e.g. 500 kg" required>
+                            <span class="error-msg">Please enter quantity</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Expected Price (₹)</label>
+                            <input type="text" id="price" placeholder="e.g. 45/kg" required>
+                            <span class="error-msg">Please enter expected price</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="primary-btn full-width ripple">List Product for Sale</button>
+                    
+                    <div id="sell-success-msg" class="success-msg hidden">
+                        <i class="ph-fill ph-check-circle"></i> Product listed successfully to marketplace! We will notify you of buyers.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section bg-alt">
+        <div class="container fade-in">
+            <div class="section-header">
+                <h2><i class="ph-fill ph-envelope-simple"></i> Get in Touch</h2>
+                <p>Need support? Our agriculture experts are here to help.</p>
+            </div>
+            
+            <div class="form-container glass-card">
+                <form id="contact-form" novalidate>
+                    <div class="form-group">
+                        <label for="contact-name">Name</label>
+                        <input type="text" id="contact-name" placeholder="Your Name" required>
+                        <span class="error-msg">Please enter your name</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-email">Email</label>
+                        <input type="email" id="contact-email" placeholder="you@example.com" required>
+                        <span class="error-msg">Please enter a valid email address</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-message">Message</label>
+                        <textarea id="contact-message" rows="5" placeholder="How can we help you?" required></textarea>
+                        <span class="error-msg">Please enter your message</span>
+                    </div>
+                    <button type="submit" class="primary-btn ripple">Send Message</button>
+                    
+                    <div id="contact-success-msg" class="success-msg hidden">
+                        <i class="ph-fill ph-check-circle"></i> Message sent successfully! Our team will reach out soon.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo">
+                    <i class="ph-fill ph-plant"></i>
+                    <span>Green Life</span>
+                </div>
+                <p>Empowering farmers with smart technology for a sustainable and prosperous future.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#plant-doctor">Plant Doctor</a></li>
+                    <li><a href="#market">Market Prices</a></li>
+                    <li><a href="#crop-recommendation">Crop Advisor</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Contact Info</h3>
+                <ul>
+                    <li><i class="ph ph-phone"></i> +91 1800 123 4567</li>
+                    <li><i class="ph ph-envelope"></i> support@greenlife.ag</li>
+                    <li><i class="ph ph-map-pin"></i> Tech Park, Bangalore, India</li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h3>Connect With Us</h3>
+                <div class="social-icons">
+                    <a href="#" class="ripple"><i class="ph-fill ph-twitter-logo"></i></a>
+                    <a href="#" class="ripple"><i class="ph-fill ph-facebook-logo"></i></a>
+                    <a href="#" class="ripple"><i class="ph-fill ph-instagram-logo"></i></a>
+                    <a href="#" class="ripple"><i class="ph-fill ph-youtube-logo"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Green Life Technologies. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+// script.js
+
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // --- 1. Notification Banner ---
+    const notifications = [
+        "🌦️ Heavy rain expected tomorrow in northern districts.",
+        "📈 Tomato market prices increased by 12% today.",
+        "🌾 Government subsidy available for Kharif seeds. Apply now!",
+        "🤖 Try our new AI Crop Recommendation system below."
+    ];
+    const slider = document.getElementById('notification-slider');
+    let currentNotif = 0;
+
+    const renderNotification = () => {
+        slider.innerHTML = `<div class="banner-item">${notifications[currentNotif]}</div>`;
+        currentNotif = (currentNotif + 1) % notifications.length;
+    };
+    
+    renderNotification(); // Initial
+    setInterval(() => {
+        slider.style.transform = 'translateY(-100%)';
+        setTimeout(() => {
+            slider.style.transition = 'none';
+            slider.style.transform = 'translateY(100%)';
+            renderNotification();
+            setTimeout(() => {
+                slider.style.transition = 'transform 0.5s ease-in-out';
+                slider.style.transform = 'translateY(0)';
+            }, 50);
+        }, 500);
+    }, 4000);
+
+    // --- 2. Theme Toggle ---
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+    const themeIcon = themeToggleBtn.querySelector('i');
+    
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        body.classList.add('dark-mode');
+        body.classList.remove('light-mode');
+        themeIcon.classList.replace('ph-moon', 'ph-sun');
+    }
+    
+    themeToggleBtn.addEventListener('click', () => {
+        if (body.classList.contains('dark-mode')) {
+            body.classList.replace('dark-mode', 'light-mode');
+            themeIcon.classList.replace('ph-sun', 'ph-moon');
+            localStorage.setItem('theme', 'light');
+        } else {
+            body.classList.add('dark-mode');
+            body.classList.remove('light-mode');
+            themeIcon.classList.replace('ph-moon', 'ph-sun');
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+
+    // --- 3. Language Switcher (Mock UI) ---
+    const langOptions = document.querySelectorAll('.lang-option');
+    const currentLangSpan = document.getElementById('current-lang');
+    
+    langOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            currentLangSpan.innerText = option.getAttribute('data-lang');
+            // Here you would typically trigger a translation function
+        });
+    });
+
+    // --- 4. Mobile Menu & Navbar Scroll ---
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = mobileMenuBtn.querySelector('i');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('active');
+        if (mobileMenu.classList.contains('active')) {
+            menuIcon.classList.replace('ph-list', 'ph-x');
+        } else {
+            menuIcon.classList.replace('ph-x', 'ph-list');
+        }
+    });
+    
+    document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            menuIcon.classList.replace('ph-x', 'ph-list');
+        });
+    });
+
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) navbar.classList.add('scrolled');
+        else navbar.classList.remove('scrolled');
+    });
+
+    // --- 5. Smooth Scrolling & Active Links ---
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                e.preventDefault();
+                const headerOffset = 100;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+            }
+        });
+    });
+
+    document.getElementById('hero-cta').addEventListener('click', () => {
+        document.querySelector('#plant-doctor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // --- 6. Fade-in Animations ---
+    const fadeElements = document.querySelectorAll('.fade-in');
+    const fadeInObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+    
+    fadeElements.forEach(el => fadeInObserver.observe(el));
+
+    // --- 7. Dashboard Stats Count-Up ---
+    const counters = document.querySelectorAll('.counter');
+    const statsObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counter = entry.target;
+                const target = +counter.getAttribute('data-target');
+                const duration = 2000; // ms
+                const increment = target / (duration / 16); // 60fps
+                
+                let current = 0;
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.innerText = Math.ceil(current).toLocaleString();
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.innerText = target.toLocaleString() + "+";
+                    }
+                };
+                updateCounter();
+                observer.unobserve(counter);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    counters.forEach(counter => statsObserver.observe(counter));
+
+    // --- 8. Premium AI Plant Doctor (Split Layout) ---
+    // Left Column: Vision AI
+    const uploadArea = document.getElementById('upload-area');
+    const fileInput = document.getElementById('file-input');
+    const uploadContent = document.getElementById('upload-content');
+    const previewArea = document.getElementById('preview-area');
+    const imagePreview = document.getElementById('image-preview');
+    const reuploadBtn = document.getElementById('reupload-btn');
+    const analyzeBtn = document.getElementById('analyze-btn');
+    const analysisResult = document.getElementById('analysis-result');
+    
+    const openCameraBtn = document.getElementById('open-camera-btn');
+    const cameraScanner = document.getElementById('camera-scanner');
+
+    // Drag & Drop
+    uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('dragover');
+    });
+    uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
+    uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+        if (e.dataTransfer.files.length) {
+            fileInput.files = e.dataTransfer.files;
+            handleFileUpload();
+        }
+    });
+    fileInput.addEventListener('change', handleFileUpload);
+    
+    function handleFileUpload() {
+        const file = fileInput.files[0];
+        if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                imagePreview.src = e.target.result;
+                uploadContent.classList.add('hidden');
+                previewArea.classList.remove('hidden');
+                analysisResult.classList.add('hidden');
+                uploadArea.style.cursor = 'default';
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+    
+    reuploadBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        fileInput.click();
+    });
+
+    // Camera Scan Simulation
+    openCameraBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        cameraScanner.classList.remove('hidden');
+        analysisResult.classList.add('hidden');
+        setTimeout(() => {
+            cameraScanner.classList.add('hidden');
+            generateAnalysisResult();
+        }, 3000);
+    });
+
+    // Analysis Logic Database
+    const diseaseDatabase = [
+        { name: 'Tomato Leaf Curl', cause: 'Whitefly-transmitted begomovirus.', medicine: 'Apply systemic insecticides like Imidacloprid.', prevention: 'Use yellow sticky traps and plant border crops.' },
+        { name: 'Nitrogen Deficiency', cause: 'Lack of available nitrogen in the soil.', medicine: 'Apply nitrogen-rich fertilizer like Urea.', prevention: 'Maintain proper soil pH and add organic compost regularly.' },
+        { name: 'Fungal Infection', cause: 'Excess moisture and poor air circulation.', medicine: 'Copper Fungicide Spray.', prevention: 'Avoid overwatering and improve airflow around plants.' },
+        { name: 'Pest Attack (Aphids)', cause: 'Infestation by sap-sucking insects.', medicine: 'Neem oil or insecticidal soap spray.', prevention: 'Introduce beneficial insects like ladybugs.' },
+        { name: 'Healthy Plant', cause: 'Optimal growing conditions.', medicine: 'None required.', prevention: 'Continue current watering and fertilizer schedule.' }
+    ];
+
+    function generateAnalysisResult() {
+        const result = diseaseDatabase[Math.floor(Math.random() * diseaseDatabase.length)];
+        const confidence = Math.floor(Math.random() * 15) + 85;
+        document.getElementById('confidence-val').innerText = `${confidence}%`;
+        document.getElementById('disease-name').innerText = result.name;
+        document.getElementById('disease-cause').innerText = result.cause;
+        document.getElementById('disease-medicine').innerText = result.medicine;
+        document.getElementById('disease-prevention').innerText = result.prevention;
+        analysisResult.classList.remove('hidden');
+    }
+
+    analyzeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const originalText = analyzeBtn.innerHTML;
+        analyzeBtn.innerHTML = '<i class="ph ph-spinner ph-spin"></i> AI analyzing plant health...';
+        analyzeBtn.disabled = true;
+        analysisResult.classList.add('hidden');
+        setTimeout(() => {
+            analyzeBtn.innerHTML = originalText;
+            analyzeBtn.disabled = false;
+            generateAnalysisResult();
+        }, 2000);
+    });
+
+    // Right Column: Chat AI
+    const diagnoseChatBtn = document.getElementById('diagnose-btn');
+    const symptomInput = document.getElementById('symptom-input');
+    const chatWindow = document.getElementById('chat-window');
+    const typingIndicator = document.getElementById('typing-indicator');
+    const micBtn = document.getElementById('mic-btn');
+    const voiceOverlay = document.getElementById('voice-overlay');
+
+    const chatRules = [
+        { keywords: ['yellow', 'nitrogen'], response: 'Possible Nitrogen Deficiency detected. Recommended medicine: Urea fertilizer.' },
+        { keywords: ['black', 'spot', 'fungus'], response: 'Possible fungal infection detected. Recommended medicine: Copper Fungicide Spray.' },
+        { keywords: ['dry', 'wilting', 'water'], response: 'Signs of Water Stress. Please implement a deep, consistent watering schedule immediately.' },
+        { keywords: ['insect', 'bug', 'aphid', 'worm'], response: 'Pest infestation is highly likely. Recommended action: Apply neem oil or insecticidal soap.' }
+    ];
+
+    const addMessage = (text, isUser = false) => {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `message ${isUser ? 'user-msg' : 'bot-msg'}`;
+        msgDiv.innerHTML = text;
+        chatWindow.appendChild(msgDiv);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+    };
+
+    const handleChat = (overrideInput = null) => {
+        const input = (overrideInput || symptomInput.value).trim().toLowerCase();
+        if (!input) return;
+
+        addMessage(overrideInput || symptomInput.value, true);
+        if (!overrideInput) symptomInput.value = '';
+        diagnoseChatBtn.disabled = true;
+        typingIndicator.classList.remove('hidden');
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+
+        setTimeout(() => {
+            typingIndicator.classList.add('hidden');
+            let found = false;
+            for (const rule of chatRules) {
+                if (rule.keywords.some(kw => input.includes(kw))) {
+                    addMessage(`<strong><i class="ph-fill ph-check-circle" style="color:var(--success)"></i> Diagnosis:</strong><br>${rule.response}`, false);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                addMessage("I'm analyzing your description... For a more accurate diagnosis, please upload a clear photo of the plant on the left panel.", false);
+            }
+            diagnoseChatBtn.disabled = false;
+        }, 1500);
+    };
+
+    diagnoseChatBtn.addEventListener('click', () => handleChat());
+    symptomInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleChat(); });
+
+    // Voice Mic Simulation
+    micBtn.addEventListener('click', () => {
+        voiceOverlay.classList.remove('hidden');
+        setTimeout(() => {
+            voiceOverlay.classList.add('hidden');
+            handleChat("My tomato leaves have black spots");
+        }, 3000);
+    });
+
+    // --- 9. Weather Fake Update ---
+    const updateWeatherBtn = document.getElementById('update-weather-btn');
+    const weatherGrid = document.getElementById('weather-grid');
+
+    const renderWeather = () => {
+        const randomTemp = 20 + Math.floor(Math.random() * 15);
+        const randomRain = Math.floor(Math.random() * 60);
+        const randomWind = 5 + Math.floor(Math.random() * 20);
+        const randomHum = 40 + Math.floor(Math.random() * 40);
+
+        weatherGrid.innerHTML = `
+            <div class="weather-card glass-card">
+                <div class="weather-icon"><i class="ph-fill ph-thermometer"></i></div>
+                <div class="weather-value">${randomTemp}°C</div>
+                <div class="weather-label">Temperature</div>
+            </div>
+            <div class="weather-card glass-card">
+                <div class="weather-icon"><i class="ph-fill ph-drop"></i></div>
+                <div class="weather-value">${randomRain}%</div>
+                <div class="weather-label">Rain Chance</div>
+            </div>
+            <div class="weather-card glass-card">
+                <div class="weather-icon"><i class="ph-fill ph-wind"></i></div>
+                <div class="weather-value">${randomWind} km/h</div>
+                <div class="weather-label">Wind Speed</div>
+            </div>
+            <div class="weather-card glass-card">
+                <div class="weather-icon"><i class="ph-fill ph-sun-horizon"></i></div>
+                <div class="weather-value">6:15 PM</div>
+                <div class="weather-label">Sunset</div>
+            </div>
+        `;
+    };
+
+    renderWeather(); // Init
+    updateWeatherBtn.addEventListener('click', () => {
+        const originalText = updateWeatherBtn.innerHTML;
+        updateWeatherBtn.innerHTML = '<i class="ph ph-spinner ph-spin"></i>';
+        setTimeout(() => {
+            renderWeather();
+            updateWeatherBtn.innerHTML = originalText;
+        }, 800);
+    });
+
+    // --- 10. Crop Recommendation Logic ---
+    const cropRecForm = document.getElementById('crop-rec-form');
+    const cropRecResult = document.getElementById('crop-rec-result');
+
+    cropRecForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const soil = document.getElementById('rec-soil').value;
+        const water = document.getElementById('rec-water').value;
+        const season = document.getElementById('rec-season').value;
+
+        // Simple logic mapping
+        let recommendation = "Mixed Vegetables";
+        let desc = "A versatile option suitable for standard conditions.";
+
+        if (soil === 'black' && season === 'kharif') {
+            recommendation = "Cotton";
+            desc = "Black soil retains moisture well, perfect for Kharif cotton.";
+        } else if (water === 'high' && season === 'kharif') {
+            recommendation = "Rice (Paddy)";
+            desc = "High water availability makes this ideal for paddy cultivation.";
+        } else if (soil === 'sandy' && season === 'zaid') {
+            recommendation = "Watermelon";
+            desc = "Sandy soil and summer heat are perfect for melons.";
+        } else if (season === 'rabi' && water === 'medium') {
+            recommendation = "Wheat";
+            desc = "Standard Rabi crop requiring moderate irrigation.";
+        } else if (soil === 'red' && water === 'low') {
+            recommendation = "Ragi / Millets";
+            desc = "Highly drought-resistant, perfect for red soil with low water.";
+        }
+
+        cropRecResult.innerHTML = `
+            <div class="rec-result-content fade-in visible">
+                <h3><i class="ph-fill ph-check-circle" style="color:var(--primary-color)"></i> AI Recommendation</h3>
+                <div class="rec-crop">${recommendation}</div>
+                <p class="rec-desc">${desc}</p>
+                <div class="suggestion-tag mt-2" style="background:rgba(76,175,80,0.1); color:var(--primary-color); padding:5px 15px; border-radius:20px; display:inline-block; font-weight:bold; margin-top:10px;">High Confidence Match</div>
+            </div>
+        `;
+    });
+
+    // --- 11. Fertilizer Guide Logic ---
+    const fertSelect = document.getElementById('fert-crop-select');
+    const fertResultGrid = document.getElementById('fert-result-grid');
+    
+    const fertData = {
+        tomato: { fert: "NPK 5-10-10 or Calcium-rich", water: "1-2 inches per week", sun: "Full Sun (6-8 hrs)" },
+        rice: { fert: "Nitrogen heavy (Urea)", water: "Continuous flooding/High", sun: "Full Sun" },
+        onion: { fert: "NPK 10-20-10", water: "1 inch per week", sun: "Full Sun" },
+        ragi: { fert: "Organic compost / Low NPK", water: "Low (Drought resistant)", sun: "Full Sun" },
+        sugarcane: { fert: "NPK + Sulphur", water: "High (1500-2500 mm/year)", sun: "Full Sun" }
+    };
+
+    fertSelect.addEventListener('change', (e) => {
+        const crop = e.target.value;
+        if (fertData[crop]) {
+            document.getElementById('fert-req-text').innerText = fertData[crop].fert;
+            document.getElementById('water-req-text').innerText = fertData[crop].water;
+            document.getElementById('sun-req-text').innerText = fertData[crop].sun;
+            fertResultGrid.classList.remove('hidden');
+        }
+    });
+
+    // --- 12. Form Validations (Marketplace & Contact) ---
+    const validateForm = (form) => {
+        let isValid = true;
+        form.querySelectorAll('input[required], textarea[required], select[required]').forEach(input => {
+            if (!input.value.trim() || !input.checkValidity()) {
+                input.classList.add('invalid');
+                isValid = false;
+            } else {
+                input.classList.remove('invalid');
+            }
+        });
+        return isValid;
+    };
+
+    const setupForm = (formId, successId) => {
+        const form = document.getElementById(formId);
+        const successMsg = document.getElementById(successId);
+        
+        form.querySelectorAll('input, textarea, select').forEach(input => {
+            input.addEventListener('input', () => input.classList.remove('invalid'));
+        });
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (validateForm(form)) {
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Processing...';
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    successMsg.classList.remove('hidden');
+                    form.reset();
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    setTimeout(() => successMsg.classList.add('hidden'), 5000);
+                }, 1200);
+            }
+        });
+    };
+
+    setupForm('sell-form', 'sell-success-msg');
+    setupForm('contact-form', 'contact-success-msg');
+
+    // --- 13. Ripple Effect for Buttons ---
+    // CSS handles the pseudo-element animation, we just re-trigger the animation class if needed,
+    // but the pure CSS solution with :active or pseudo works fine. For a true JS ripple:
+    document.querySelectorAll('.ripple').forEach(btn => {
+        btn.addEventListener('click', function (e) {
+            let ripple = document.createElement('span');
+            ripple.classList.add('ripple-span');
+            this.appendChild(ripple);
+            let x = e.clientX - e.target.getBoundingClientRect().left;
+            let y = e.clientY - e.target.getBoundingClientRect().top;
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            setTimeout(() => { ripple.remove(); }, 600);
+        });
+    });
+});
+
+</script>
+</body>
+</html>
